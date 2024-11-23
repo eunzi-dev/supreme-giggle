@@ -1,0 +1,1015 @@
+<html><head><base href="https://example.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+  * { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Orbitron', sans-serif;  
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes shootingStar {
+    0% {
+      transform: translateX(200%) translateY(-200%) rotate(45deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-200%) translateY(200%) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes floatAstronaut {
+    0%, 100% { 
+      transform: translate(0, 0) rotate(5deg); 
+    }
+    50% { 
+      transform: translate(-10px, -15px) rotate(-5deg); 
+    }
+  }
+
+  @keyframes loadingAnimation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #5b5bff;
+    animation: loadingAnimation 1s linear infinite;
+    vertical-align: middle;
+  }
+
+  .astronaut {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    animation: floatAstronaut 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  }
+
+  .stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .shooting-star {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 50%, rgba(255,255,255,0) 100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    box-shadow: 
+      0 0 0 4px rgba(255,255,255,0.1),
+      0 0 0 8px rgba(255,255,255,0.1);
+  }
+
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, transparent);
+    transform: translateX(-100%);
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a1a1a;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .anime-character-left {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    z-index: 2;
+    animation: floatCharacter 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(32, 252, 177, 0.5));
+  }
+
+  .anime-character-right {
+    position: absolute;
+    right: 5%;
+    bottom: 0;
+    z-index: 2;
+    animation: floatCharacter 4s ease-in-out infinite 1s;
+    filter: drop-shadow(0 0 10px rgba(91, 91, 255, 0.5));
+  }
+
+  @keyframes floatCharacter {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+  }
+
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(90deg, rgba(0,0,0,0.3) 1px, transparent 1px) 0 0 / 20px 20px,
+      linear-gradient(0deg, rgba(0,0,0,0.3) 1px, transparent 1px) 0 0 / 20px 20px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+      rgba(32, 252, 177, 0.2),
+      rgba(91, 91, 255, 0.2),
+      rgba(255, 82, 229, 0.2));
+    animation: colorPulse 5s ease infinite;
+  }
+
+  @keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(20px); }
+  }
+
+  @keyframes colorPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .login-container {
+    background: linear-gradient(135deg, 
+      rgba(91, 91, 255, 0.9) 0%,
+      rgba(32, 252, 177, 0.9) 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(32, 252, 177, 0.3),
+                0 0 20px rgba(91, 91, 255, 0.2);
+    width: 100%;
+    max-width: 400px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    animation: float 6s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  h2 { 
+    font-family: 'Orbitron', sans-serif;  
+    color: white; 
+    text-align: center; 
+    margin-bottom: 2rem; 
+    font-size: 1.8em;  
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    text-shadow: 0 0 10px rgba(32, 252, 177, 0.5),
+                 0 0 20px rgba(91, 91, 255, 0.3);
+    animation: glowText 2s ease-in-out infinite;
+    line-height: 1.6; 
+  }
+
+  @keyframes glowText {
+    0%, 100% { text-shadow: 0 0 10px rgba(32, 252, 177, 0.5), 0 0 20px rgba(91, 91, 255, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(32, 252, 177, 0.8), 0 0 30px rgba(91, 91, 255, 0.6); }
+  }
+
+  .input-group { margin-bottom: 1.5rem; position: relative; }
+  .input-group input { width: 100%; padding: 10px; border: none; border-bottom: 2px solid rgba(255, 255, 255, 0.5); background: transparent; transition: all 0.3s ease; font-size: 1rem; color: white; font-family: 'Orbitron', sans-serif; }
+  .input-group input:focus { outline: none; border-bottom-color: white; }
+  .input-group label { position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: rgba(255, 255, 255, 0.8); pointer-events: none; transition: all 0.3s ease; font-family: 'Orbitron', sans-serif; }
+  .input-group input:focus ~ label, .input-group input:valid ~ label { top: -20px; font-size: 0.8rem; color: white; }
+  button { width: 100%; padding: 12px; background: white; border: none; border-radius: 25px; color: #5b5bff; font-size: 1.1rem; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; font-weight: bold; font-family: 'Orbitron', sans-serif; }
+  button.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: wait;
+  }
+  button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(32, 252, 177, 0.3), 0 0 15px rgba(91, 91, 255, 0.2); background: linear-gradient(45deg, #5b5bff, #20fcb1); color: white; transition: all 0.3s ease; }
+  .social-login { margin-top: 2rem; text-align: center; }
+  .social-login p { color: white; font-family: 'Orbitron', sans-serif; }
+  .social-icons { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
+  .social-icons svg { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease; cursor: pointer; }
+  .social-icons svg:hover { transform: translateY(-8px) rotate(360deg); box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); transition: all 0.5s ease; }
+
+  .container-star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    animation: rotateStar 3s linear infinite;
+  }
+
+  .top-left-star { top: -10px; left: -10px; }
+  .top-right-star { top: -10px; right: -10px; }
+  .bottom-left-star { bottom: -10px; left: -10px; }
+  .bottom-right-star { bottom: -10px; right: -10px; }
+
+  @keyframes rotateStar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .firework {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .firework-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(135deg, #20fcb1, #5b5bff);
+    border-radius: 50%;
+    transform-origin: center;
+  }
+
+  @keyframes explode {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(0);
+      opacity: 0;
+    }
+  }
+
+  .side-star-left,
+  .side-star-right {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .side-star-left {
+    left: -50px;
+    animation: rotateStar 3s linear infinite, pulseStar 2s ease-in-out infinite;
+  }
+
+  .side-star-right {
+    right: -50px;
+    animation: rotateStar 3s linear infinite reverse, pulseStar 2s ease-in-out infinite 1s;
+  }
+
+  @keyframes pulseStar {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.2); }
+  }
+
+  .spinning-star-left,
+  .spinning-star-right {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+    animation: spinStar 2s linear infinite;
+  }
+
+  .spinning-star-left {
+    left: -80px;
+  }
+
+  .spinning-star-right {
+    right: -80px;
+    animation-direction: reverse;
+  }
+
+  @keyframes spinStar {
+    from {
+      transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+
+  .planet {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatPlanet 20s linear infinite;
+  }
+
+  .planet-rings {
+    position: absolute;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    transform: rotate(75deg);
+  }
+
+  @keyframes floatPlanet {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(180deg);
+    }
+    100% {
+      transform: translateY(0) rotate(360deg);
+    }
+  }
+
+  .planet-1 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #845EC2);
+    box-shadow: inset -20px -20px 50px rgba(0,0,0,0.5),
+                0 0 20px rgba(255,107,107,0.3);
+    top: 15%;
+    left: 10%;
+  }
+
+  .planet-2 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at 30% 30%, #4D8076, #2C73D2);
+    box-shadow: inset -30px -30px 60px rgba(0,0,0,0.5),
+                0 0 25px rgba(44,115,210,0.3);
+    bottom: 20%;
+    right: 15%;
+    animation-delay: -10s;
+  }
+
+  .planet-3 {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, #FFA41B, #FF5151);
+    box-shadow: inset -15px -15px 40px rgba(0,0,0,0.5),
+                0 0 15px rgba(255,81,81,0.3);
+    top: 30%;
+    right: 25%;
+    animation-delay: -5s;
+  }
+
+  .planet-4 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, #FFD93D, #FF8400);
+    box-shadow: inset -25px -25px 50px rgba(0,0,0,0.5),
+                0 0 20px rgba(255,132,0,0.3);
+    top: 60%;
+    left: 20%;
+    animation-delay: -15s;
+  }
+
+  .planet-5 {
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle at 30% 30%, #6C4AB6, #8D72E1);
+    box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5),
+                0 0 18px rgba(108,74,182,0.3);
+    top: 25%;
+    right: 10%;
+    animation-delay: -8s;
+  }
+
+  .planet-6 {
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle at 30% 30%, #FF69B4, #FF1493);
+    box-shadow: inset -15px -15px 35px rgba(0,0,0,0.5),
+                0 0 15px rgba(255,105,180,0.3);
+    bottom: 15%;
+    left: 35%;
+    animation-delay: -12s;
+  }
+
+  .constellation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .constellation-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px white;
+  }
+
+  .constellation-line {
+    position: absolute;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    transform-origin: left center;
+  }
+
+  @keyframes constellationGlow {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .checkbox-group input[type="checkbox"]:checked {
+    background: #5b5bff;
+    border-color: #5b5bff;
+  }
+
+  .checkbox-group input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .checkbox-group input[type="checkbox"]:hover {
+    border-color: white;
+  }
+
+  .checkbox-group label {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 1rem;
+  }
+
+  .forgot-password a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .forgot-password a:hover {
+    color: #20fcb1;
+    text-shadow: 0 0 8px rgba(32, 252, 177, 0.5);
+    transform: translateX(5px);
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  /* Input hover effects */
+  .input-group input:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+    transition: all 0.3s ease;
+  }
+
+  /* Container hover effect */
+  .login-container:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(32, 252, 177, 0.4),
+                0 0 30px rgba(91, 91, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  /* Astronaut hover effect */
+  .astronaut:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+    transition: all 0.3s ease;
+  }
+
+  /* Planet hover effects */
+  .planet:hover {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+
+  /* Star hover effect */
+  .star:hover {
+    transform: scale(2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  /* Button enhanced hover effect */
+  button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(32, 252, 177, 0.3),
+                0 0 15px rgba(91, 91, 255, 0.2);
+    background: linear-gradient(45deg, #5b5bff, #20fcb1);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  /* Social icons enhanced hover effect */
+  .social-icons svg:hover {
+    transform: translateY(-8px) rotate(360deg);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    transition: all 0.5s ease;
+  }
+
+  /* Checkbox hover effect */
+  .checkbox-group input[type="checkbox"]:hover {
+    border-color: #5b5bff;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+  }
+
+  /* Constellation star hover effect */
+  .constellation-star:hover {
+    transform: scale(2.5);
+    box-shadow: 0 0 15px white;
+    transition: all 0.3s ease;
+    z-index: 3;
+  }
+
+  /* Anime character hover effects */
+  .anime-character-left:hover,
+  .anime-character-right:hover {
+    transform: scale(1.1) translateY(-10px);
+    filter: brightness(1.2) drop-shadow(0 0 20px rgba(32, 252, 177, 0.8));
+    transition: all 0.3s ease;
+  }
+
+  /* Container star hover effects */
+  .spinning-star-left:hover,
+  .spinning-star-right:hover {
+    transform: scale(1.2) rotate(180deg);
+    filter: brightness(1.3);
+    transition: all 0.5s ease;
+  }
+
+  /* Add transition properties to base elements for smooth effects */
+  .input-group input,
+  .login-container,
+  .astronaut,
+  .planet,
+  .star,
+  button,
+  .social-icons svg,
+  .checkbox-group input[type="checkbox"],
+  .forgot-password a,
+  .constellation-star,
+  .anime-character-left,
+  .anime-character-right,
+  .spinning-star-left,
+  .spinning-star-right {
+    transition: all 0.3s ease;
+  }
+</style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <svg class="anime-character-left" width="200" height="400" viewBox="0 0 200 400">
+    <path fill="#20fcb1" d="M100,50 C130,50 150,70 150,100 C150,130 130,150 100,150 C70,150 50,130 50,100 C50,70 70,50 100,50 Z"/>
+    <path fill="#20fcb1" d="M70,150 L130,150 L140,350 L60,350 Z"/>
+    <path fill="#5b5bff" d="M70,200 Q100,220 130,200 L140,350 L60,350 Q65,280 70,200"/>
+  </svg>
+
+  <svg class="anime-character-right" width="200" height="400" viewBox="0 0 200 400">
+    <path fill="#5b5bff" d="M100,50 C130,50 150,70 150,100 C150,130 130,150 100,150 C70,150 50,130 50,100 C50,70 70,50 100,50 Z"/>
+    <path fill="#5b5bff" d="M80,150 L120,150 L130,350 L70,350 Z"/>
+    <path fill="#20fcb1" d="M80,200 Q100,220 120,200 L130,350 L70,350 Q75,280 80,200"/>
+  </svg>
+
+  <div class="login-container">
+    <svg class="astronaut" viewBox="0 0 200 200">
+      <!-- Spacesuit -->
+      <path fill="#e6e6e6" d="M100,65 C120,65 135,80 135,100 C135,120 120,140 100,140 C80,140 65,120 65,100 C65,80 80,65 100,65 Z"/>
+      <!-- Helmet Visor -->
+      <path fill="#87CEEB" d="M85,85 C85,75 115,75 115,85 C115,95 115,105 100,110 C85,105 85,95 85,85 Z"/>
+      <!-- Backpack -->
+      <path fill="#cccccc" d="M75,90 L65,100 L65,120 L75,130 L75,90 Z"/>
+      <!-- Arms -->
+      <path fill="#e6e6e6" d="M135,100 L150,90 L155,110 L135,120 Z"/>
+      <path fill="#e6e6e6" d="M65,100 L50,90 L45,110 L65,120 Z"/>
+      <!-- Legs -->
+      <path fill="#e6e6e6" d="M90,140 L85,170 L95,170 L100,140 Z"/>
+      <path fill="#e6e6e6" d="M110,140 L115,170 L105,170 L100,140 Z"/>
+      <!-- Suit Details -->
+      <circle fill="#ff3333" cx="120" cy="95" r="5"/>
+      <rect fill="#999999" x="90" y="120" width="20" height="5" rx="2"/>
+    </svg>
+
+    <svg class="spinning-star-left" viewBox="0 0 24 24">
+      <path fill="#20fcb1" d="M12,0 L14,8 L22,12 L14,16 L12,24 L10,16 L2,12 L10,8 Z">
+        <animate attributeName="fill" values="#20fcb1;#5b5bff;#20fcb1" dur="3s" repeatCount="indefinite"/>
+      </path>
+    </svg>
+
+    <svg class="spinning-star-right" viewBox="0 0 24 24">
+      <path fill="#5b5bff" d="M12,0 L14,8 L22,12 L14,16 L12,24 L10,16 L2,12 L10,8 Z">
+        <animate attributeName="fill" values="#5b5bff;#20fcb1;#5b5bff" dur="3s" repeatCount="indefinite"/>
+      </path>
+    </svg>
+
+    <h2>Welcome Back</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="email" id="email" required>
+        <label>Email</label>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" required>
+        <label>Password</label>
+      </div>
+      <div class="forgot-password">
+        <a href="https://example.com/forgot-password">Forgot Password?</a>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember">Remember me</label>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <div class="social-login">
+      <p>Or login with</p>
+      <div class="social-icons">
+        <svg fill="#1877F2" viewBox="0 0 24 24">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
+        <svg viewBox="0 0 24 24">
+          <path fill="#DB4437" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-.05 16c-3.312 0-6-2.688-6-6s2.688-6 6-6c1.62 0 2.976.594 4.014 1.566L14.26 9.52c-.438-.41-1.2-.886-2.31-.886-1.98 0-3.6 1.638-3.6 3.616s1.62 3.616 3.6 3.616c2.292 0 3.156-1.644 3.288-2.496h-3.288v-2.064h5.484c.048.258.096.516.096.876 0 3.324-2.226 5.616-5.58 5.616z"/>
+        </svg>
+        <svg fill="#1DA1F2" viewBox="0 0 24 24">
+          <path d="M22 5.795c-.75.333-1.5.566-2.333.7.833-.5 1.5-1.299 1.833-2.199-.833.5-1.667.832-2.583.999-.833-.9-2-1.399-3.25-1.399-2.5 0-4.5 2.099-4.5 4.598 0 .4 0 .7.167 1-.167 0-.333-.1-.5-.1-4.333 0-8.166 2.199-10.666 5.298-.5-.8-.667-1.699-.667-2.699 0-1.599.833-3.098 2.167-3.998-.667 0-1.333.2-1.833.5v-.1c0-2.199 1.5-4.098 3.667-4.498-.333-.1-.833-.1-1.167-.1-.333 0-.667 0-.833.1.5-1.799 2.167-3.098 4-3.198-1.5-1.199-3.333-1.899-5.333-1.899-.333 0-.667 0-1 .1C3.833 1.797 6.167 1 8.667 1c7.333 0 11.333 6.098 11.333 11.396v.5c.833.6 1.5 1.299 2 2.098z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const starsContainer = document.querySelector('.stars');
+    for(let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animation = `twinkle ${Math.random() * 3 + 1}s ease-in-out infinite`;
+      star.style.animationDelay = `${Math.random() * 3}s`;
+      starsContainer.appendChild(star);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const rememberMe = document.getElementById('remember').checked;
+      console.log('Remember me:', rememberMe);
+      const button = document.querySelector('button');
+      
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email.value)) {
+        alert('Please enter a valid email address');
+        email.focus();
+        return;
+      }
+
+      if (password.value.length < 6) {
+        alert('Password must be at least 6 characters long');
+        password.focus();
+        return;
+      }
+
+      // Add loading state
+      button.disabled = true;
+      button.classList.add('loading');
+      const spinner = document.createElement('div');
+      spinner.className = 'loading-spinner';
+      button.prepend(spinner);
+      button.innerHTML = `<div class="loading-spinner"></div>Logging in...`;
+
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Create multiple fireworks on successful login
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createFirework(x, y);
+          }, i * 200);
+        }
+
+        console.log('Login successful:', {
+          email: email.value,
+          password: '********'
+        });
+
+        button.classList.remove('loading');
+        button.style.backgroundColor = '#4CAF50';
+        button.innerHTML = 'Success!';
+        
+        setTimeout(() => {
+          email.value = '';
+          password.value = '';
+          button.disabled = false;
+          button.style.opacity = '1';
+          button.style.backgroundColor = 'white';
+          button.innerHTML = 'Login';
+        }, 2000);
+
+      } catch (error) {
+        console.error('Login failed:', error);
+        button.classList.remove('loading');
+        button.innerHTML = 'Try Again';
+        button.style.backgroundColor = '#ff4444';
+        
+        setTimeout(() => {
+          button.disabled = false;
+          button.style.opacity = '1';
+          button.style.backgroundColor = 'white';
+          button.innerHTML = 'Login';
+        }, 2000);
+      }
+    });
+
+    function createFirework(x, y) {
+      const firework = document.createElement('div');
+      firework.className = 'firework';
+      firework.style.left = x + 'px';
+      firework.style.top = y + 'px';
+      
+      // Create particles
+      const particleCount = 20;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'firework-particle';
+        
+        // Calculate random angle and distance
+        const angle = (Math.PI * 2 * i) / particleCount;
+        const distance = Math.random() * 100 + 50;
+        
+        // Set transform variables
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+        
+        // Set animation
+        particle.style.animation = 'explode 1s ease-out forwards';
+        
+        firework.appendChild(particle);
+      }
+      
+      document.body.appendChild(firework);
+      
+      // Remove firework element after animation
+      setTimeout(() => {
+        document.body.removeChild(firework);
+      }, 1000);
+    }
+
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      
+      // Random position and duration
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+      const duration = Math.random() * 1000 + 1000; // 1-2 seconds
+      
+      star.style.left = `${startX}px`;
+      star.style.top = `${startY}px`;
+      star.style.animation = `shootingStar ${duration}ms linear`;
+      
+      document.body.appendChild(star);
+      
+      // Remove the star after animation completes
+      setTimeout(() => {
+        document.body.removeChild(star);
+      }, duration);
+    }
+
+    // Create shooting stars periodically
+    function initShootingStars() {
+      setInterval(() => {
+        if (Math.random() < 0.3) { // 30% chance each interval
+          createShootingStar();
+        }
+      }, 500);
+    }
+
+    // Start the shooting stars animation
+    initShootingStars();
+
+    // Add click event listener to body
+    document.body.addEventListener('click', (e) => {
+      // Don't create fireworks when clicking interactive elements
+      if (e.target.closest('button, input, .social-icons')) return;
+      
+      createFirework(e.clientX, e.clientY);
+    });
+
+    document.querySelectorAll('.social-icons svg').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const platform = this.querySelector('path').getAttribute('fill');
+        let service = '';
+        
+        if (platform === '#1877F2') service = 'Facebook';
+        else if (platform === '#DB4437') service = 'Google';
+        else if (platform === '#1DA1F2') service = 'Twitter';
+        
+        console.log(`Attempting to login with ${service}`);
+        this.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 200);
+      });
+
+      icon.addEventListener('mouseover', function() {
+        this.style.transform = 'translateY(-5px)';
+      });
+      
+      icon.addEventListener('mouseout', function() {
+        this.style.transform = '';
+      });
+    });
+
+    document.querySelectorAll('.input-group input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateX(5px)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.style.transform = '';
+      });
+    });
+
+    function createPlanets() {
+      const planets = [
+        { class: 'planet-1', rings: true },
+        { class: 'planet-2', rings: true },
+        { class: 'planet-3', rings: false },
+        { class: 'planet-4', rings: true },
+        { class: 'planet-5', rings: false },
+        { class: 'planet-6', rings: true }
+      ];
+
+      planets.forEach(planetData => {
+        const planet = document.createElement('div');
+        planet.className = `planet ${planetData.class}`;
+        
+        if (planetData.rings) {
+          const rings = document.createElement('div');
+          rings.className = 'planet-rings';
+          rings.style.width = '120%';
+          rings.style.height = '120%';
+          rings.style.left = '-10%';
+          rings.style.top = '-10%';
+          planet.appendChild(rings);
+        }
+        
+        document.body.appendChild(planet);
+      });
+    }
+
+    createPlanets();
+
+    function createConstellations() {
+      const constellations = [
+        // Ursa Major (Big Dipper)
+        {
+          stars: [
+            {x: 15, y: 15}, {x: 25, y: 18}, {x: 35, y: 20},
+            {x: 45, y: 25}, {x: 50, y: 35}, {x: 45, y: 45},
+            {x: 40, y: 55}
+          ]
+        },
+        // Orion
+        {
+          stars: [
+            {x: 65, y: 15}, {x: 70, y: 25}, {x: 68, y: 35},
+            {x: 75, y: 45}, {x: 62, y: 35}, {x: 72, y: 35},
+            {x: 65, y: 55}
+          ]
+        },
+        // Cassiopeia
+        {
+          stars: [
+            {x: 85, y: 20}, {x: 90, y: 25}, {x: 95, y: 20},
+            {x: 100, y: 25}, {x: 105, y: 20}
+          ]
+        }
+      ];
+
+      const container = document.createElement('div');
+      container.className = 'constellation';
+      document.body.appendChild(container);
+
+      constellations.forEach(constellation => {
+        // Create stars
+        constellation.stars.forEach((star, i) => {
+          const starEl = document.createElement('div');
+          starEl.className = 'constellation-star';
+          starEl.style.left = star.x + '%';
+          starEl.style.top = star.y + '%';
+          starEl.style.animation = `constellationGlow ${2 + Math.random()}s ease-in-out infinite`;
+          container.appendChild(starEl);
+
+          // Create lines connecting stars
+          if (i < constellation.stars.length - 1) {
+            const nextStar = constellation.stars[i + 1];
+            const line = document.createElement('div');
+            line.className = 'constellation-line';
+            
+            // Calculate line position and dimensions
+            const x1 = star.x;
+            const y1 = star.y;
+            const x2 = nextStar.x;
+            const y2 = nextStar.y;
+            
+            // Calculate length and angle
+            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            
+            // Position the line
+            line.style.left = x1 + '%';
+            line.style.top = y1 + '%';
+            line.style.width = length + '%';
+            line.style.transform = `rotate(${angle}rad)`;
+            line.style.animation = 'constellationGlow 3s ease-in-out infinite';
+            
+            container.appendChild(line);
+          }
+        });
+      });
+    }
+
+    // Call createConstellations after the page loads
+    createConstellations();
+  </script>
+</body>
+</html>
